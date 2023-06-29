@@ -35,7 +35,7 @@ def explanatory_analysis(charges_data_path, personal_data_path, plan_data_path):
     merged_data = merged_data.merge(plan_data, on='customerID', how='left')
 
     # part 6
-    age_check = merged_data['age'].apply(lambda x: 1 if x > 60 else 0)
+    age_check = (merged_data['age'] > 60).astype(int)
     above_80 = round(np.mean(age_check)*100)
 
     # part 7
@@ -54,6 +54,8 @@ def explanatory_analysis(charges_data_path, personal_data_path, plan_data_path):
 
 
 
-explanatory_analysis('./data/charges_data.csv',
+out = explanatory_analysis('./data/charges_data.csv',
                       './data/personal_data.csv', 
                       './data/plan_data.csv')
+
+print(out)                     
